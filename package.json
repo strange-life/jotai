@@ -1,0 +1,40 @@
+{
+  "name": "@madahapa/jotai",
+  "version": "0.0.1",
+  "description": "A jotai clone for vanilla JS",
+  "keywords": [
+    "state",
+    "management",
+    "atomic"
+  ],
+  "license": "ISC",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vitest watch",
+    "build": "unbuild",
+    "prepack": "pnpm build",
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
+    "test": "pnpm test:types && vitest run",
+    "test:types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "typescript": "^5.5.4",
+    "unbuild": "^2.0.0",
+    "vitest": "^2.0.5"
+  }
+}
