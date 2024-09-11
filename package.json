@@ -8,6 +8,10 @@
     "atomic"
   ],
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strange-life/jotai.git"
+  },
   "type": "module",
   "exports": {
     ".": {
