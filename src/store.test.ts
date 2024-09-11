@@ -73,4 +73,33 @@ describe.concurrent('createStore function', () => {
 
     expect(listener).not.toHaveBeenCalled();
   });
+
+  test('derived atom should update and notify when its dependencies change', ({
+    expect,
+  }) => {
+    const store = createStore();
+    const countAtom = atom(0);
+    const doubleAtom = atom((get) => get(countAtom) * 2);
+    const listener = vi.fn();
+
+    store.subscribe(doubleAtom, () => listener(store.get(doubleAtom)));
+    store.set(countAtom, 1);
+
+    expect(listener).toHaveBeenCalledWith(2);
+  });
+
+  test('custom write should set atom correctly', ({ expect }) => {
+    const store = createStore();
+    const countAtom = atom(0);
+    const doubleAtom = atom(
+      (get) => get(countAtom) * 2,
+      (_get, set, value: number) => set(countAtom, value / 2),
+    );
+    const listener = vi.fn();
+
+    store.subscribe(countAtom, () => listener(store.get(countAtom)));
+    store.set(doubleAtom, 4);
+
+    expect(listener).toHaveBeenCalledWith(2);
+  });
 });

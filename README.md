@@ -7,11 +7,15 @@ import { createStore, atom } from "@madahapa/jotai";
 
 const store = createStore();
 const countAtom = atom(0);
+const doubleCountAtom = atom(
+  (get) => get(countAtom) * 2,
+  (get, set, value: number) => set(countAtom, value / 2)
+);
 
-const unsubscribe = store.subscribe(countAtom, function () {
-  console.log(store.get(countAtom));
+const unsubscribe = store.subscribe(doubleCountAtom, function () {
+  console.log(store.get(doubleCountAtom));
 });
 
-store.set(countAtom, store.get(count) + 1);
+store.set(countAtom, (prev) => prev + 1);
 unsubscribe();
 ```
